@@ -32,10 +32,7 @@ Besides these files, you also need to download the *SMPL* model. You will need t
 ## Run demo on images
 The following command will run ViTDet and HMR2.0 on all images in the specified `--img_folder`, and save renderings of the reconstructions in `--out_folder`. `--batch_size` batches the images together for faster processing. The `--side_view` flags additionally renders the side view of the reconstructed mesh, `--full_frame` renders all people together in front view, `--save_mesh` saves meshes as `.obj`s.
 ```bash
-python demo.py \
-    --img_folder example_data/images \
-    --out_folder demo_out \
-    --batch_size=48 --side_view --save_mesh --full_frame
+python demo.py --img_folder example_data/images --out_folder demo_out --batch_size=48 --side_view --save_mesh --full_frame
 ```
 
 ## Run tracking demo on videos

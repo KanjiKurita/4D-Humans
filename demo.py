@@ -134,7 +134,11 @@ def main():
                 scene_bg_color=(1, 1, 1),
                 focal_length=scaled_focal_length,
             )
-            cam_view = renderer.render_rgba_multiple(all_verts, cam_t=all_cam_t, render_res=img_size[n], **misc_args)
+            cam_view_rgb = renderer.render_rgba_multiple(all_verts, cam_t=all_cam_t, render_res=img_size[n], **misc_args)
+
+            # アルファチャンネルを追加
+            cam_view_alpha = np.ones((cam_view_rgb.shape[0], cam_view_rgb.shape[1], 1))
+            cam_view = np.concatenate([cam_view_rgb, cam_view_alpha], axis=2)
 
             # Overlay image
             input_img = img_cv2.astype(np.float32)[:,:,::-1]/255.0
