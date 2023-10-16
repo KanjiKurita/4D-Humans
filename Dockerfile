@@ -36,9 +36,9 @@ RUN pip install -v -e .[all]
 RUN pip uninstall -y PyOpenGL PyOpenGL_accelerate
 RUN pip install PyOpenGL PyOpenGL_accelerate
 
-# pklの取得
-RUN wget https://github.com/classner/up/raw/master/models/3D/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl && \
-    mkdir data/ && \
+# pklの取得（ファイルが存在しない場合のみ取得）
+RUN wget -nc https://github.com/classner/up/raw/master/models/3D/basicModel_neutral_lbs_10_207_0_v1.0.0.pkl && \
+    mkdir -p data/ && \
     mv basicModel_neutral_lbs_10_207_0_v1.0.0.pkl data/
 
 # コンテナ側のリッスンポート番号
