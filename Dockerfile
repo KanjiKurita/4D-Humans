@@ -27,13 +27,15 @@ RUN conda create -yn ${env_name} python=3.10
 ENV CONDA_DEFAULT_ENV ${env_name}
 RUN echo "conda activate ${env_name}" >> ~/.bashrc
 ENV PATH /opt/conda/envs/${env_name}/bin:$PATH
+RUN conda init bash
+SHELL ["conda", "run", "-n", "4D-humans", "/bin/bash", "-c"]
 
 # Pythonパッケージをインストール
-RUN conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch
-RUN pip install pycocotools
-RUN pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
-RUN pip install -v -e .[all]
-RUN pip uninstall -y PyOpenGL PyOpenGL_accelerate
+RUN conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch && \
+    pip install pycocotools && \
+    pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118 && \
+    pip install -v -e .[all] && \
+    pip uninstall -y PyOpenGL PyOpenGL_accelerate
 RUN pip install PyOpenGL PyOpenGL_accelerate
 
 # pklの取得（ファイルが存在しない場合のみ取得）
